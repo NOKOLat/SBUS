@@ -47,12 +47,6 @@ public:
         }
         return data;
     }
-    std::array<uint16_t,18> getData(){
-        if(needDecode){
-            decode(receiveBuffer,data);
-        }
-        return data;
-    }
 
     constexpr uint8_t getDataLen(){
         return length;
