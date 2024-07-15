@@ -41,7 +41,7 @@ public:
         return data[channel-1];
     }
 
-    const std::array<uint16_t,18> &getData(){
+    std::array<uint16_t,18> &getData(){
         if(needDecode){
             decode(receiveBuffer,data);
         }
