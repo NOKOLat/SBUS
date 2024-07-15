@@ -34,7 +34,7 @@ public:
 
     int16_t getData(const uint8_t channel){
         if(channel > 18 or channel < 1) return -1;
-        if(needParse){
+        if(needDecode){
             decode(receiveBuffer,data);
         }
 
@@ -42,9 +42,15 @@ public:
     }
 
     const std::array<uint16_t,18> &getData(){
+        if(needDecode){
+            decode(receiveBuffer,data);
+        }
         return data;
     }
     std::array<uint16_t,18> getData(){
+        if(needDecode){
+            decode(receiveBuffer,data);
+        }
         return data;
     }
 
