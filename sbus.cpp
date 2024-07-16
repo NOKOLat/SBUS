@@ -1,4 +1,4 @@
-#include "SBUS.h"
+#include "sbus.h"
 
 namespace nokolat{
     void SBUS::decode(std::array<uint8_t,25> &arg, SBUS_DATA &res){
