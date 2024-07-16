@@ -11,10 +11,10 @@ struct SBUS_DATA{
     bool failsafe = false;
     bool flamelost = false;
 
-    uint16_t operator[](uint8_t __n) noexcept{
+    uint16_t &operator[](std::size_t __n) noexcept{
         return data[__n];
     }
-    uint16_t at(uint8_t __n){
+    uint16_t &at(std::size_t __n){
         return data.at(__n);
     }
 };
@@ -70,7 +70,7 @@ private:
 
     const uint8_t HEADER = 0x0f;
     const uint8_t FOOTER = 0x00;
-    const uint8_t FOOTER = 0x04
+    const uint8_t FOOTER2 = 0x04
 };
 
 } /* namespace nokolat */
