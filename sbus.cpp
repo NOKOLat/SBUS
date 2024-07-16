@@ -35,7 +35,7 @@ namespace nokolat{
             res.at(8) += ((int16_t)arg.at(13) & 0b111)<<8;
 
             res.at(9) = arg.at(13)>>3;
-            res.at(9) += ((int16_t)arg.at(14) & 0b111111)<<8;
+            res.at(9) += ((int16_t)arg.at(14) & 0b111111)<<5;
 
             res.at(10) = arg.at(14)>>6;
             res.at(10) += ((int16_t)arg.at(15))<<2;
