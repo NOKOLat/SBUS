@@ -11,13 +11,13 @@ struct SBUS_DATA{
     bool failsafe = false;
     bool flamelost = false;
 
-    uint16_t operator[](size_type __n) noexcept{
+    uint16_t operator[](uint8_t __n) noexcept{
         return data[__n];
     }
-    uint16_t at(size_type __n){
+    uint16_t at(uint8_t __n){
         return data.at(__n);
     }
-}
+};
 
 class SBUS {
 public:
@@ -41,7 +41,7 @@ public:
         return data[channel-1];
     }
 
-    std::array<uint16_t,18> &getData(){
+    SBUS_DATA &getData(){
         if(needDecode){
             decode(receiveBuffer,data);
         }
