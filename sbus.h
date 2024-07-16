@@ -70,7 +70,7 @@ private:
 
     const uint8_t HEADER = 0x0f;
     const uint8_t FOOTER = 0x00;
-    const uint8_t FOOTER2 = 0x04
+    const uint8_t FOOTER2 = 0x04;
 };
 
 } /* namespace nokolat */
