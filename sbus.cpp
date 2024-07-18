@@ -60,7 +60,7 @@ namespace nokolat{
             res.at(16) = arg.at(23) &0b1;
             res.at(17) = (arg.at(23) &0b10)>>1;
 
-            res.flamelost = (arg.at(23)&0b100)>>2;
+            res.framelost = (arg.at(23)&0b100)>>2;
             res.failsafe = (arg.at(23)&0b1000)>>3;
         }
     }
@@ -102,7 +102,7 @@ namespace nokolat{
         res.at(22) = (arg.at(15)>>3 & 0xff);
 
         res.at(23) = (arg.at(16) & 0b1) & (arg.at(17)<<1 & 0b10);
-        res.at(23) = (uint8_t)arg.flamelost << 2;
+        res.at(23) = (uint8_t)arg.framelost << 2;
         res.at(23) = (uint8_t)arg.failsafe << 3;
         res.at(24) = FOOTER;
     }

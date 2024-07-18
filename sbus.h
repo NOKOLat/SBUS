@@ -9,7 +9,7 @@ namespace nokolat {
 struct SBUS_DATA{
     std::array<uint16_t,18> data = {};
     bool failsafe = false;
-    bool flamelost = false;
+    bool framelost = false;
 
     uint16_t &operator[](std::size_t __n) noexcept{
         return data[__n];
