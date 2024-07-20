@@ -7,7 +7,7 @@
 namespace nokolat {
 
 struct SBUS_DATA{
-    std::array<uint16_t,18> data = {};
+    std::array<uint16_t,18> data;
     bool failsafe = false;
     bool framelost = false;
 
@@ -17,6 +17,9 @@ struct SBUS_DATA{
     uint16_t &at(std::size_t __n){
         return data.at(__n);
     }
+
+    SBUS_DATA(std::array<uint16_t,18> data = {})
+    :data(data){}
 };
 
 class SBUS {
@@ -61,9 +64,10 @@ public:
 
     std::array<uint8_t,25> encode(SBUS_DATA &arg);
 
+protected:
+    SBUS_DATA data;
 private:
     std::array<uint8_t,25> receiveBuffer;
-    SBUS_DATA data;
     bool needDecode;
 
     const uint8_t length = 25;
