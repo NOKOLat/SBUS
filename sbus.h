@@ -66,8 +66,8 @@ public:
 
 protected:
     SBUS_DATA data;
-private:
     std::array<uint8_t,25> receiveBuffer;
+private:
     bool needDecode;
 
     const uint8_t length = 25;
