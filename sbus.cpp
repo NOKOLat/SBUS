@@ -16,8 +16,8 @@ namespace nokolat{
 				*it++ = (arg.at(10)>>5)+(((int16_t)arg.at(11+n*11))<<3);
         	 }
 
-            res.framelost = (arg.at(23)&0b100)>>2;
-            res.failsafe = (arg.at(23)&0b1000)>>3;
+            res.framelost = (arg.at(23)<<5)>>7;
+            res.failsafe = (arg.at(23)<<4)>>7;
         }
     }
 
