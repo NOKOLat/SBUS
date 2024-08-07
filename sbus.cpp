@@ -4,61 +4,17 @@ namespace nokolat{
     void SBUS::decode(std::array<uint8_t,25> &arg, SBUS_DATA &res){
          if(arg.at(0) == HEADER &&
         (arg.at(24) == FOOTER || (arg.at(24)&0x0F) == FOOTER2)){
-
-            res.at(0) = arg.at(1);
-            res.at(0) += ((int16_t)arg.at(2) & 0b111)<<8;
-
-            res.at(1) = arg.at(2)>>3;
-            res.at(1) += ((int16_t)arg.at(3) & 0b111111)<<5;
-
-            res.at(2) = arg.at(3)>>6;
-            res.at(2) += ((int16_t)arg.at(4))<<2;
-            res.at(2) += ((int16_t)arg.at(5) & 0b1)<<10;
-
-            res.at(3) = arg.at(5)>>1;
-            res.at(3) += ((int16_t)arg.at(6) & 0b1111)<<7;
-
-            res.at(4) = arg.at(6)>>4;
-            res.at(4) += ((int16_t)arg.at(7) & 0b1111111)<<4;
-
-            res.at(5) = arg.at(7)>>7;
-            res.at(5) += ((int16_t)arg.at(8))<<1;
-            res.at(5) += ((int16_t)arg.at(9) & 0b11)<<9;
-
-            res.at(6) = arg.at(9)>>2;
-            res.at(6) += ((int16_t)arg.at(10) & 0b11111)<<6;
-
-            res.at(7) = arg.at(10)>>5;
-            res.at(7) += ((int16_t)arg.at(11))<<3;
-
-            res.at(8) = arg.at(12);
-            res.at(8) += ((int16_t)arg.at(13) & 0b111)<<8;
-
-            res.at(9) = arg.at(13)>>3;
-            res.at(9) += ((int16_t)arg.at(14) & 0b111111)<<5;
-
-            res.at(10) = arg.at(14)>>6;
-            res.at(10) += ((int16_t)arg.at(15))<<2;
-            res.at(10) += ((int16_t)arg.at(16) & 0b1)<<10;
-
-            res.at(11) = arg.at(16)>>1;
-            res.at(11) += ((int16_t)arg.at(17) & 0b1111)<<7;
-
-            res.at(12) = arg.at(17)>>4;
-            res.at(12) += ((int16_t)arg.at(18) & 0b1111111)<<4;
-
-            res.at(13) = arg.at(18)>>7;
-            res.at(13) += ((int16_t)arg.at(19))<<1;
-            res.at(13) += ((int16_t)arg.at(20) & 0b11)<<9;
-
-            res.at(14) = arg.at(20)>>2;
-            res.at(14) += ((int16_t)arg.at(21) & 0b11111)<<6;
-
-            res.at(15) = arg.at(21)>>5;
-            res.at(15) += ((int16_t)arg.at(22))<<3;
-
-            res.at(16) = arg.at(23) &0b1;
-            res.at(17) = (arg.at(23) &0b10)>>1;
+        	 auto it = res.data.begin();
+        	 for(uint8_t n=0; n<2; n++){
+				*it++ = arg.at(1+n*11) + (((int16_t)(arg.at(2+n*11)<<5))<<3);
+				*it++ = (arg.at(2+n*11)>>3) + (((int16_t)(arg.at(3+n*11)<<3))<<2);
+				*it++ = (arg.at(3+n*11)>>6)+(((int16_t)arg.at(4+n*11))<<2)+(((int16_t)(arg.at(5+n*11)<<7))<<3);
+				*it++ = (arg.at(5+n*11)>>1)+(((int16_t)(arg.at(6+n*11)<<4))<<3);
+				*it++ = (arg.at(6+n*11)>>4)+(((int16_t)(arg.at(7+n*11)<<1))<<3);
+				*it++ = (arg.at(7+n*11)>>7)+(((int16_t)arg.at(8+n*11))<<1)+(((int16_t)arg.at(9+n*11)<<6)<<3);
+				*it++ = (arg.at(9+n*11)>>2)+(((int16_t)arg.at(10+n*11)<<3)<<3);
+				*it++ = (arg.at(10)>>5)+(((int16_t)arg.at(11+n*11))<<3);
+        	 }
 
             res.framelost = (arg.at(23)&0b100)>>2;
             res.failsafe = (arg.at(23)&0b1000)>>3;
