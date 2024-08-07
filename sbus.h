@@ -24,8 +24,6 @@ struct SBUS_DATA{
 
 class SBUS {
 public:
-    SBUS(){}
-    virtual ~SBUS(){};
 
     auto getBufferIterator(){
         return receiveBuffer.cbegin();
@@ -68,7 +66,7 @@ protected:
     SBUS_DATA data;
     std::array<uint8_t,25> receiveBuffer;
 private:
-    bool needDecode;
+    bool needDecode = false;
 
     const uint8_t length = 25;
 
