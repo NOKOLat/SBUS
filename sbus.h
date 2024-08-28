@@ -4,6 +4,8 @@
 #include <array>
 #include <iterator>
 
+#include "ringBuffer/ringBuffer.h"
+
 namespace nokolat {
 
 struct SBUS_DATA{
@@ -60,13 +62,15 @@ public:
     }
 
     SBUS_DATA decode(std::array<uint8_t,25> &arg);
+    SBUS_DATA decode(RingBuffer<uint8_t,25> &arg);
     void decode(std::array<uint8_t,25> &arg, SBUS_DATA &res);
+    void decode(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res);
 
     std::array<uint8_t,25> encode(SBUS_DATA &arg);
 
 protected:
     SBUS_DATA data;
-    std::array<uint8_t,25> receiveBuffer;
+    RingBuffer<uint8_t,25> receiveBuffer;
 private:
     bool needDecode;
 

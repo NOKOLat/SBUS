@@ -65,12 +65,94 @@ namespace nokolat{
         }
     }
 
+    void SBUS::decode(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res){
+    	for(uint8_t n=0; n<length; n++){
+    		if(arg[n]==HEADER &&(arg[n-1] == FOOTER || (arg[n-1]&0x0F) == FOOTER2)){
+    			arg.setHeadIndex(n);
+    			break;
+    		}else if(n==length-1){
+    			res = SBUS_DATA();
+    			res.framelost = true;
+    			return;
+    		}
+    	}
+
+             if(arg[0] == HEADER &&
+            (arg[24] == FOOTER || (arg[24]&0x0F) == FOOTER2)){
+
+                res.at(0) = arg[1];
+                res.at(0) += ((int16_t)arg[2] & 0b111)<<8;
+
+                res.at(1) = arg[2]>>3;
+                res.at(1) += ((int16_t)arg[3] & 0b111111)<<5;
+
+                res.at(2) = arg[3]>>6;
+                res.at(2) += ((int16_t)arg[4])<<2;
+                res.at(2) += ((int16_t)arg[5] & 0b1)<<10;
+
+                res.at(3) = arg[5]>>1;
+                res.at(3) += ((int16_t)arg[6] & 0b1111)<<7;
+
+                res.at(4) = arg[6]>>4;
+                res.at(4) += ((int16_t)arg[7] & 0b1111111)<<4;
+
+                res.at(5) = arg[7]>>7;
+                res.at(5) += ((int16_t)arg[8])<<1;
+                res.at(5) += ((int16_t)arg[9] & 0b11)<<9;
+
+                res.at(6) = arg[9]>>2;
+                res.at(6) += ((int16_t)arg[10] & 0b11111)<<6;
+
+                res.at(7) = arg[10]>>5;
+                res.at(7) += ((int16_t)arg[11])<<3;
+
+                res.at(8) = arg[12];
+                res.at(8) += ((int16_t)arg[13] & 0b111)<<8;
+
+                res.at(9) = arg[13]>>3;
+                res.at(9) += ((int16_t)arg[14] & 0b111111)<<5;
+
+                res.at(10) = arg[14]>>6;
+                res.at(10) += ((int16_t)arg[15])<<2;
+                res.at(10) += ((int16_t)arg[16] & 0b1)<<10;
+
+                res.at(11) = arg[16]>>1;
+                res.at(11) += ((int16_t)arg[17] & 0b1111)<<7;
+
+                res.at(12) = arg[17]>>4;
+                res.at(12) += ((int16_t)arg[18] & 0b1111111)<<4;
+
+                res.at(13) = arg[18]>>7;
+                res.at(13) += ((int16_t)arg[19])<<1;
+                res.at(13) += ((int16_t)arg[20] & 0b11)<<9;
+
+                res.at(14) = arg[20]>>2;
+                res.at(14) += ((int16_t)arg[21] & 0b11111)<<6;
+
+                res.at(15) = arg[21]>>5;
+                res.at(15) += ((int16_t)arg[22])<<3;
+
+                res.at(16) = arg[23] &0b1;
+                res.at(17) = (arg[23] &0b10)>>1;
+
+                res.framelost = (arg[23]&0b100)>>2;
+                res.failsafe = (arg[23]&0b1000)>>3;
+            }
+        }
+
 
     SBUS_DATA SBUS::decode(std::array<uint8_t,25> &arg){
         SBUS_DATA res;
         decode(arg,res);
         return res;
     }
+
+    SBUS_DATA SBUS::decode(RingBuffer<uint8_t,25> &arg){
+        SBUS_DATA res;
+        decode(arg,res);
+        return res;
+    }
+
 
     std::array<uint8_t,25> SBUS::encode(SBUS_DATA &arg){
         std::array<uint8_t,25> res;
