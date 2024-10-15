@@ -61,6 +61,14 @@ public:
         needDecode = arg;
     }
 
+    inline std::array<uint8_t, 25> getRawBuffer(){
+    	std::array<uint8_t, 25> res;
+    	for(uint8_t n=0; n<25; n++){
+    		res[n] = receiveBuffer[n];
+    	}
+    	return res;
+    }
+
     SBUS_DATA decode(std::array<uint8_t,25> &arg);
     SBUS_DATA decode(RingBuffer<uint8_t,25> &arg);
     void decode(std::array<uint8_t,25> &arg, SBUS_DATA &res);
