@@ -1,7 +1,7 @@
 #include "sbus.h"
 
 namespace nokolat{
-    void SBUS::decode(std::array<uint8_t,25> &arg, SBUS_DATA &res){
+    void SBUS::parse(std::array<uint8_t,25> &arg, SBUS_DATA &res){
          if(arg.at(0) == HEADER &&
         (arg.at(24) == FOOTER || (arg.at(24)&0x0F) == FOOTER2)){
 
@@ -65,7 +65,7 @@ namespace nokolat{
         }
     }
 
-    void SBUS::decode(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res){
+    void SBUS::parse(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res){
     	for(uint8_t n=0; n<length; n++){
     		if(arg[n]==HEADER &&(arg[n-1] == FOOTER || (arg[n-1]&0x0F) == FOOTER2)){
     			arg.setHeadIndex(n);
@@ -138,15 +138,15 @@ namespace nokolat{
 	}
 
 
-    SBUS_DATA SBUS::decode(std::array<uint8_t,25> &arg){
+    SBUS_DATA SBUS::parse(std::array<uint8_t,25> &arg){
         SBUS_DATA res;
-        decode(arg,res);
+        parse(arg,res);
         return res;
     }
 
-    SBUS_DATA SBUS::decode(RingBuffer<uint8_t,25> &arg){
+    SBUS_DATA SBUS::parse(RingBuffer<uint8_t,25> &arg){
         SBUS_DATA res;
-        decode(arg,res);
+        parse(arg,res);
         return res;
     }
 

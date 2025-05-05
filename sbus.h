@@ -39,16 +39,16 @@ public:
 
     int16_t getData(const uint8_t channel){
         if(channel > 18 or channel < 1) return -1;
-        if(needDecode){
-            decode(receiveBuffer,data);
+        if(needParse){
+            parse(receiveBuffer,data);
         }
 
         return data[channel-1];
     }
 
-    SBUS_DATA &getData(){
-        if(needDecode){
-            decode(receiveBuffer,data);
+    const SBUS_DATA &getData(){
+        if(needParse){
+            parse(receiveBuffer,data);
         }
         return data;
     }
@@ -57,11 +57,11 @@ public:
         return length;
     }
 
-    void requireDecode(bool arg=true){
-        needDecode = arg;
+    void requireParse(bool arg=true){
+        needParse = arg;
     }
 
-    inline std::array<uint8_t, 25> getRawBuffer(){
+    std::array<uint8_t, 25> getRawBuffer(){
     	std::array<uint8_t, 25> res;
     	for(uint8_t n=0; n<25; n++){
     		res[n] = receiveBuffer[n];
@@ -69,18 +69,21 @@ public:
     	return res;
     }
 
-    SBUS_DATA decode(std::array<uint8_t,25> &arg);
-    SBUS_DATA decode(RingBuffer<uint8_t,25> &arg);
-    void decode(std::array<uint8_t,25> &arg, SBUS_DATA &res);
-    void decode(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res);
+    void parse(){
+        parse(receiveBuffer, data);
+    }
+    SBUS_DATA parse(std::array<uint8_t,25> &arg);
+    SBUS_DATA parse(RingBuffer<uint8_t,25> &arg);
+    void parse(std::array<uint8_t,25> &arg, SBUS_DATA &res);
+    void parse(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res);
 
-    std::array<uint8_t,25> encode(SBUS_DATA &arg);
+    std::array<uint8_t,25> convertToRawArrey(SBUS_DATA &arg);
 
 protected:
     SBUS_DATA data;
     RingBuffer<uint8_t,25> receiveBuffer;
 private:
-    bool needDecode;
+    bool needParse;
 
     const uint8_t length = 25;
 
