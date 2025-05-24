@@ -151,7 +151,7 @@ namespace nokolat{
     }
 
 
-    std::array<uint8_t,25> SBUS::encode(SBUS_DATA &arg){
+    std::array<uint8_t,25> SBUS::convertToRawArrey(SBUS_DATA &arg){
         std::array<uint8_t,25> res;
 
         res.at(0) = HEADER;

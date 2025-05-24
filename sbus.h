@@ -77,6 +77,9 @@ public:
     void parse(std::array<uint8_t,25> &arg, SBUS_DATA &res);
     void parse(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res);
 
+    std::array<uint8_t,25> convertToRawArrey(){
+    	return convertToRawArrey(data);
+    }
     std::array<uint8_t,25> convertToRawArrey(SBUS_DATA &arg);
 
 protected:
