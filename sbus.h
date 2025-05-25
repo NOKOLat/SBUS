@@ -3,6 +3,7 @@
 
 #include <array>
 #include <iterator>
+#include <stdint.h>
 
 #include "ringBuffer/ringBuffer.h"
 
