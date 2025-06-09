@@ -28,7 +28,6 @@ struct SBUS_DATA{
 class SBUS {
 public:
     SBUS(){}
-    virtual ~SBUS(){};
 
     auto getBufferIterator(){
         return receiveBuffer.cbegin();
@@ -70,7 +69,7 @@ public:
     	return res;
     }
 
-    void parse(){
+    inline void parse(){
         parse(receiveBuffer, data);
     }
     SBUS_DATA parse(std::array<uint8_t,25> &arg);
