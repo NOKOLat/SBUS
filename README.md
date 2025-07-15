@@ -1,7 +1,7 @@
 # SBUS
 ## Methods
 ### uint8_t *getReceiveBufferPtr()
-Return a pointer for the receive buffer.
+Return a pointer to the receive buffer.
 ### int16_t getData(const uint8_t channel)
 Return a value of the specified channel given in an argument.
 ### const SBUS_DATA &getData()
@@ -21,6 +21,9 @@ This function parse internal buffer and ready to use data.
 #### SBUS_DATA parse(RingBuffer<uint8_t,25> &arg)
 #### void parse(std::array<uint8_t,25> &arg, SBUS_DATA &res)
 #### void parse(RingBuffer<uint8_t,25> &arg, SBUS_DATA &res)
+
+### uint16_t convertSbus2PwmWidthUS(uint16_t arg)
+This function convert a sbus raw value that is giben in argument to pwm pulse width (us).
 
 ## Usage for STM32 HAL library
 ```c++

@@ -82,6 +82,8 @@ public:
     }
     std::array<uint8_t,25> convertToRawArrey(SBUS_DATA &arg);
 
+    uint16_t convertSbus2PwmWidthUS(uint16_t arg);
+
 protected:
     SBUS_DATA data;
     RingBuffer<uint8_t,25> receiveBuffer;
@@ -93,6 +95,11 @@ private:
     const uint8_t HEADER = 0x0f;
     const uint8_t FOOTER = 0x00;
     const uint8_t FOOTER2 = 0x04;
+
+    const uint16_t SBUS_MAX = 0x7C0;
+    const uint16_t SBUS_MIN = 0x40;
+    const uint16_t PWM_WIDTH_MAX = 2120;
+    const uint16_t PWM_WIDTH_MIN = 920;
 };
 
 } /* namespace nokolat */
