@@ -187,4 +187,11 @@ namespace nokolat{
 
         return res;
     }
+
+    uint16_t SBUS::convertSbus2PwmWidthUS(uint16_t arg){
+    	const uint16_t SBUS_BW = SBUS_MAX - SBUS_MIN;
+    	const uint16_t PWM_BW = PWM_WIDTH_MAX - PWM_WIDTH_MIN;
+
+    	return (arg - SBUS_MIN)*PWM_BW/SBUS_BW + PWM_WIDTH_MIN;
+    }
 }
