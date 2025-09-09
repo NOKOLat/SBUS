@@ -61,6 +61,14 @@ public:
         needParse = arg;
     }
 
+    constexpr uint16_t getSbusMax(){
+    	return SBUS_MAX;
+    }
+
+    constexpr uint16_t getSbusMin(){
+    	return SBUS_MIN;
+    }
+
     std::array<uint8_t, 25> getRawBuffer(){
     	std::array<uint8_t, 25> res;
     	for(uint8_t n=0; n<25; n++){
